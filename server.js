@@ -16,8 +16,8 @@ const server = net.createServer(socket => {
     const statusCodeAndBodyAry = createStatusCodeAndBody(basePath, path)
     const statusCode = statusCodeAndBodyAry[0]
     const body = statusCodeAndBodyAry[1]
-    const bodySize = calcByte(basePath + path)
-    //const hex = calcHex(body)
+    //const bodySize = calcByte(basePath + path)
+    const hex = calcHex(body)
     //const statusCode = "200 OK"
     //const htmlFile = fetchFile()
     //const body = htmlFile
@@ -25,8 +25,8 @@ const server = net.createServer(socket => {
     //const dicimalByte = encodeURI(body).replace(/%../g, "*").length
     //const hex = dicimalByte.toString(16)
 
-    const response = `${version} ${statusCode}\r\nContent-Type: image/jpeg\r\nContent-Length: ${bodySize}\r\n\r\n${body}`
-    //const response = `${version} ${statusCode}\r\nContent-Type: image/jpeg\r\nTransfer-Encoding: chunked\r\n\r\n${hex}\r\n${body}\r\n0\r\n\r\n`
+    //const response = `${version} ${statusCode}\r\nContent-Type: image/jpeg\r\nContent-Length: ${bodySize}\r\n\r\n${body}`
+    const response = `${version} ${statusCode}\r\nTransfer-Encoding: chunked\r\n\r\n${hex}\r\n${body}\r\n0\r\n\r\n`
 
     //const response = `${version} ${statusCode}\r\nContent-Length: ${contentLen}\r\n\r\n${body}`
     //console.log(response)
@@ -82,8 +82,8 @@ function calcHex (body) {
   return hex
 }
 
-function calcByte (body) {
-  const stat  = fs.statSync(body)
+function calcByte (path) {
+  const stat  = fs.statSync(path)
   const statSize = stat.size
   return statSize
 }

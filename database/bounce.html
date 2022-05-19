@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+  <meta charset="utf-8"/>
+ </head>
+ <style>
+  #v {
+    text-align: right
+  }
+ </style>
+ <body>
+  <canvas id="canvas" width="825" height="600"></canvas>
+  <!--p id = "jsTime"></p>
+  <!--p id = "frameTime"></p>
+  <!--input type = "range" id = "radiusSlider" min =" 0" max = "100" step = "10"/>+
+  <!--p>Radius is <span id = "radius"></span></p-->
+
+  <!--div id = "v">
+  -<input type = "range" id = "vxSlider" min =" 0" max = "10" step = "1" style="text-align:right"/>+
+  <p>vx is <span id = "vx"></span></p>
+  -<input type = "range" id = "vySlider" min =" 0" max = "10" step = "1" style="text-align:right"/>+
+  <p>vy is <span id = "vy"></span></p>
+  -<input type = "range" id = "gSlider" min ="-1" max = "-0.1" step = "0.1" style="text-align:right"/>+
+  <p>g is <span id = "g"></span></p>
+  </div-->
+  <!--p>
+  <input type = "text" id = "msg">
+  <input type = "button" value = "GO" id = "goButton">
+  </p-->
+  <div>
+  <input type = "button" id = "start" value = "start" onclick = "startAnimation()"/>
+  <!--input type = "button" id = "str" value = "reset" onclick = "resetAnimation()"/-->
+  <!--input type = "button" id = "color" value = "color" onclick = "colorChange()"/-->
+  </div>
+
+  <form id = "objectType">  
+  <input type="radio" name = "draw" id = "Ball" value = "ball" onchange = "setAnimationTarget()" checked> Ball 
+  <input type="radio" name = "draw" id = "Triangle" value = "triangle" onchange = "setAnimationTarget()" > Triangle 
+  <input type="radio" name = "draw" id = "Rectangle" value = "rectangle" onchange = "setAnimationTarget()" > Rectangle
+  <input type="radio" name = "draw" id = "Character" value = "text" onchange = "setAnimationTarget()" > Text 
+  <input type="radio" name = "draw" id = "Picture" value = "picture" onchange = "setAnimationTarget()"> Picture 
+  </form>
+
+  <form id = "colorType">    <input type="radio" name="color" value= "red" id = "colorRadioR" onchange = "setAnimationTarget()" checked> Red 
+  <input type="radio" name="color" value = "green" id = "colorRadioG" onchange = "setAnimationTarget()" > Green
+  <input type="radio" name="color" value = "blue" id = "colorRadioB" onchange = "setAnimationTarget()"> Blue
+  </form>
+  
+
+  <script type="text/javascript" src="bouncingAnimation.js"></script>
+ </body>
+</html>
+
