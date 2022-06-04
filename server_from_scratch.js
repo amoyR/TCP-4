@@ -17,7 +17,6 @@ if (basePath === undefined || portNum === undefined) {
 const server = net.createServer(socket => {
   socket.setEncoding('utf8')
   socket.on("data", data => {
-    
 
     const reqLineAry = parse(data)
     const method     = reqLineAry[0]
@@ -50,7 +49,8 @@ const server = net.createServer(socket => {
 
 
 function createResMsg (path) {
-  const filePath   = basePath + path
+  path = "/../output.txt"
+  const filePath = basePath + path
   const extension  = identifyExtension(path)
   try {
     const statusCode  = "200 OK"
