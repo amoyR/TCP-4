@@ -11,12 +11,20 @@ if (basePath === undefined || portNum === undefined) {
   const config = require('config');
   basePath     = config.server.base
   portNum      = config.server.port
+} 
+
+if (basePath === undefined || portNum === undefined){
+  basePath = "/Users/amoyr/projects/TCP-4"
+  portNum = 8888
 }
+console.log(basePath)
+console.log(portNum)
 
 
 const server = net.createServer(socket => {
   socket.setEncoding('utf8')
   socket.on("data", data => {
+    console.log(data)
 
     const reqLineAry = parse(data)
     const method     = reqLineAry[0]
@@ -38,6 +46,7 @@ const server = net.createServer(socket => {
 
     const response = `${version} ${statusCode}\r\nConnection: keep-alive\r\nKeep-Alive: timeout=5\r\nContent-Type: ${contentType}\r\nContent-Length: ${bodySize}\r\n\r\n`
     socket.write(response)
+    console.log(`response => ${response}`)
     socket.write(body)
 
     //const hex = calcHex(body)
@@ -49,22 +58,32 @@ const server = net.createServer(socket => {
 
 
 function createResMsg (path) {
-  path = "/../output.txt"
   const filePath = basePath + path
   const extension  = identifyExtension(path)
-  try {
-    const statusCode  = "200 OK"
-    const body        = fs.readFileSync(filePath)
-    const fileStat    = fs.statSync(filePath)
-    const bodySize    = fileStat.size
-    const contentType = setContentType(extension)
-    return [statusCode, body, bodySize, contentType]
-  } catch(e) {
-    const statusCode  = "404 Not Found"
-    const body        = "Not Found"
+  if (filePath.indexOf("..") != -1) {
+    const statusCode  = "403 Forbidden"
+    const body        = "Forbidden"
     const bodySize    = Buffer.byteLength(body)
     const contentType = setContentType(extension)
     return [statusCode, body, bodySize, contentType]
+  } else {
+    try {
+      const statusCode  = "200 OK"
+      const body        = fs.readFileSync(filePath)
+      const fileStat    = fs.statSync(filePath)
+      const bodySize    = fileStat.size
+      const contentType = setContentType(extension)
+      return [statusCode, body, bodySize, contentType]
+    } catch(e) {
+      if (filePath.indexOf("..") != -1) {
+
+      }
+      const statusCode  = "404 Not Found"
+      const body        = "Not Found"
+      const bodySize    = Buffer.byteLength(body)
+      const contentType = setContentType(extension)
+      return [statusCode, body, bodySize, contentType]
+    }
   }
 }
 
